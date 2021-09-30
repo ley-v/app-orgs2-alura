@@ -2,9 +2,12 @@ package br.com.alura.orgs.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.alura.orgs.R
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.model.Produto
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -31,7 +34,10 @@ class FormularioProdutoActivity : AppCompatActivity() {
     }
 
     private fun criaProduto(): Produto {
-        val campoNome = binding.activityFormularioProdutoNome
+//        val campoNome2 = findViewById<TextInputEditText>(R.id.activity_formulario_produto_nome)
+//        val nome = campoNome2.text.toString()
+
+        val campoNome: TextInputEditText = binding.activityFormularioProdutoNome
         val nome = campoNome.text.toString()
         val campoDescricao = binding.activityFormularioProdutoDescricao
         val descricao = campoDescricao.text.toString()
@@ -44,6 +50,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
         }
 
         return Produto(
+//            nome, "xxt", BigDecimal.ZERO
             nome = nome,
             descricao = descricao,
             valor = valor
