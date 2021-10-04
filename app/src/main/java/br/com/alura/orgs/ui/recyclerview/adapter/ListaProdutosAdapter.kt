@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.model.Produto
+import coil.load
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
@@ -28,6 +29,8 @@ class ListaProdutosAdapter(
             val valor = binding.produtoItemValor
             val valorEmMoeda = formataParaMoedaEuro(produto.valor)
             valor.text = valorEmMoeda
+            val imagem = binding.imageView
+            imagem.load("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1.bp.blogspot.com%2F-Mpv5D-2K11w%2FYT4nVOJRLoI%2FAAAAAAAABGQ%2Fq1WWyqPdmc4jOAaWLrpd5rNQWgjDtapWACNcBGAsYHQ%2Fs0%2Fdff3de9a7f643c50f38da8e266c257fb1628748785_full.jpg&f=1&nofb=1")
         }
 
         private fun formataParaMoedaEuro(valor: BigDecimal): String? {
