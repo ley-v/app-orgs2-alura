@@ -4,6 +4,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import br.com.alura.orgs.R
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.databinding.FormularioImagemBinding
@@ -40,14 +41,22 @@ class FormularioProdutoActivity : AppCompatActivity() {
         val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
         bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
             url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-            bindingFormularioImagem.formularioImagemImageview.load(url, imageLoader = imageLoader)
+            bindingFormularioImagem.formularioImagemImageview.load(url, imageLoader = imageLoader) {
+                fallback(R.drawable.erro)
+                error(R.drawable.erro)
+                placeholder(R.drawable.plano_de_fundo_carregamento)
+            }
         }
 
         binding.activityFormularioProdutoImagem.setOnClickListener {
             AlertDialog.Builder(this)
                 .setView(bindingFormularioImagem.root)
                 .setPositiveButton("Confirmar") { _, _ ->
-                    binding.activityFormularioProdutoImagem.load(url, imageLoader)
+                    binding.activityFormularioProdutoImagem.load(url, imageLoader) {
+                        fallback(R.drawable.erro)
+                        error(R.drawable.erro)
+                        placeholder(R.drawable.plano_de_fundo_carregamento)
+                    }
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
 
