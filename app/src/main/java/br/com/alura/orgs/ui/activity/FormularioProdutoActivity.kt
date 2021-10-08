@@ -1,18 +1,13 @@
 package br.com.alura.orgs.ui.activity
 
-import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import br.com.alura.orgs.R
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.databinding.FormularioImagemBinding
 import br.com.alura.orgs.model.Produto
-import coil.ImageLoader
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
-import coil.load
+import br.com.alura.orgs.ui.extensions.tentaCarregarImagem
 import com.google.android.material.textfield.TextInputEditText
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -28,35 +23,17 @@ class FormularioProdutoActivity : AppCompatActivity() {
         setContentView(binding.root)
         configuraBotaoSalvar()
 
-        val imageLoader = ImageLoader.Builder(this)
-            .componentRegistry {
-                if (SDK_INT >= 28) {
-                    add(ImageDecoderDecoder(this@FormularioProdutoActivity))
-                } else {
-                    add(GifDecoder())
-                }
-            }
-            .build()
-
         val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
         bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
             url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-            bindingFormularioImagem.formularioImagemImageview.load(url, imageLoader = imageLoader) {
-                fallback(R.drawable.erro)
-                error(R.drawable.erro)
-                placeholder(R.drawable.plano_de_fundo_carregamento)
-            }
+            bindingFormularioImagem.formularioImagemImageview.tentaCarregarImagem(url, this)
         }
 
         binding.activityFormularioProdutoImagem.setOnClickListener {
             AlertDialog.Builder(this)
                 .setView(bindingFormularioImagem.root)
                 .setPositiveButton("Confirmar") { _, _ ->
-                    binding.activityFormularioProdutoImagem.load(url, imageLoader) {
-                        fallback(R.drawable.erro)
-                        error(R.drawable.erro)
-                        placeholder(R.drawable.plano_de_fundo_carregamento)
-                    }
+                    binding.activityFormularioProdutoImagem.tentaCarregarImagem(url, this)
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
 
