@@ -6,6 +6,7 @@ import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.model.Produto
 import br.com.alura.orgs.ui.dialog.FormularioImagemDialog
+import br.com.alura.orgs.ui.extensions.tentaCarregarImagem
 import com.google.android.material.textfield.TextInputEditText
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -23,7 +24,10 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
 
         binding.activityFormularioProdutoImagem.setOnClickListener {
-            FormularioImagemDialog(this).mostra()
+            FormularioImagemDialog(this).mostra { urlImagem ->
+                url = urlImagem
+                binding.activityFormularioProdutoImagem.tentaCarregarImagem(urlImagem, this)
+            }
         }
 
 
