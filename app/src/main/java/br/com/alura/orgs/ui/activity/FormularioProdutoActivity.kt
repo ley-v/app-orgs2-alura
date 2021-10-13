@@ -1,13 +1,11 @@
 package br.com.alura.orgs.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
-import br.com.alura.orgs.databinding.FormularioImagemBinding
 import br.com.alura.orgs.model.Produto
-import br.com.alura.orgs.ui.extensions.tentaCarregarImagem
+import br.com.alura.orgs.ui.dialog.FormularioImagemDialog
 import com.google.android.material.textfield.TextInputEditText
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -23,23 +21,12 @@ class FormularioProdutoActivity : AppCompatActivity() {
         setContentView(binding.root)
         configuraBotaoSalvar()
 
-        val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
-        bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
-            url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-            bindingFormularioImagem.formularioImagemImageview.tentaCarregarImagem(url, this)
-        }
 
         binding.activityFormularioProdutoImagem.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setView(bindingFormularioImagem.root)
-                .setPositiveButton("Confirmar") { _, _ ->
-                    binding.activityFormularioProdutoImagem.tentaCarregarImagem(url, this)
-                }
-                .setNegativeButton("Cancelar") { _, _ ->
-
-                }
-                .show()
+            FormularioImagemDialog(this).mostra()
         }
+
+
     }
 
     private fun configuraBotaoSalvar() {
