@@ -37,7 +37,7 @@ class ListaProdutosActivity : AppCompatActivity() {
         }
     }
 
-     private fun vaiParaFormularioProduto() {
+    private fun vaiParaFormularioProduto() {
         val intent = Intent(this, FormularioProdutoActivity::class.java)
         startActivity(intent)
     }
@@ -46,6 +46,15 @@ class ListaProdutosActivity : AppCompatActivity() {
         val recyclerView = binding.activityListaProdutosRecyclerView
         recyclerView.adapter = adapter
 
+        // implementação do listener para abrir a Activity de detalhes do produto com o produto clicado
+        adapter.quandoClicaNoItem = { produto ->
+            val intent = Intent(this, DetalhesProdutoActivity::class.java)
+                .apply {
+                    // envio do produto por meio do extra
+                    putExtra(CHAVE_PRODUTO, produto)
+                }
+            startActivity(intent)
+        }
     }
 
 }

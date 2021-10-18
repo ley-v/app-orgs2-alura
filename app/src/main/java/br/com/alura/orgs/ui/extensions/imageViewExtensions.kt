@@ -10,7 +10,7 @@ import coil.decode.ImageDecoderDecoder
 import coil.load
 
 
-fun ImageView.tentaCarregarImagem(url: String?, context: Context) {
+fun ImageView.tentaCarregarImagem(url: String? = null, context: Context) {
     val imageLoader = ImageLoader.Builder(context)
         .componentRegistry {
             if (Build.VERSION.SDK_INT >= 28) {
@@ -22,8 +22,8 @@ fun ImageView.tentaCarregarImagem(url: String?, context: Context) {
         .build()
 
     load(url, imageLoader) {
-        fallback(R.drawable.erro)
+        fallback(R.drawable.imagem_padrao)
         error(R.drawable.erro)
-        placeholder(R.drawable.plano_de_fundo_carregamento)
+        placeholder(R.drawable.plano_de_fundo_carregamento_cinza)
     }
 }
